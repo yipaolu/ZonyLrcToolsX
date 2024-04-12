@@ -22,8 +22,7 @@ ZonyLrcToolX 4 是一个基于 CEF 的跨平台歌词下载工具，**QQ 群:337
 软件的具体使用方法已经迁移到了全新的文档站点，请跳转到 [https://docs.myzony.com](https://docs.myzony.com)，里面包含完整的说明文档。
 
 # 捐赠
-
-<img src="./docs/img/alipay.jpg" width="200"/><img src="./docs/img/wechat.jpg" width="200"/>
+[爱发电](https://afdian.net/a/zony-lrc-tools)
 
 # Star History
 
