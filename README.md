@@ -17,6 +17,17 @@ ZonyLrcToolX 4 是一个基于 CEF 的跨平台歌词下载工具，**QQ 群:337
 
 如果你要获取最新版本，请访问 **[Release](https://github.com/real-zony/ZonyLrcToolsX/releases)** 页面进行下载。
 
+## Arch Linux 用户仓库
+
+本软件已打包到 [AUR](https://aur.archlinux.org/packages/zonylrctoolsx-bin)。Arch Linux 及其衍生发行版用户可用如下命令安装：
+
+```bash
+# yay 或其他 AUR Helper
+yay -S zonylrctoolsx-bin
+
+ZonyLrcTools.Cli --help
+```
+
 # 用法
 
 软件的具体使用方法已经迁移到了全新的文档站点，请跳转到 [https://docs.myzony.com](https://docs.myzony.com)，里面包含完整的说明文档。
