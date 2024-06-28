@@ -9,7 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
     </ItemGroup>
 
@@ -21,5 +20,18 @@
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics"/>
         <PackageReference Include="Avalonia.ReactiveUI"/>
+        <PackageReference Include="FluentAvaloniaUI" />
+        <PackageReference Include="FluentIcons.Avalonia.Fluent" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ZonyLrcTools.Common\ZonyLrcTools.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="config.yaml"/>
+        <Content Include="config.yaml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 </Project>

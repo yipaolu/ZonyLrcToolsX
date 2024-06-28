@@ -1,49 +1,51 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageVersion Include="McMaster.Extensions.CommandLineUtils" Version="4.1.1"/>
-        <PackageVersion Include="McMaster.Extensions.Hosting.CommandLine" Version="4.1.1"/>
-        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
-        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
-        <PackageVersion Include="QRCoder" Version="1.5.1"/>
-        <PackageVersion Include="Serilog.Extensions.Hosting" Version="8.0.0"/>
-        <PackageVersion Include="Serilog.Sinks.Async" Version="1.5.0"/>
-        <PackageVersion Include="Serilog.Sinks.Console" Version="5.0.1"/>
-        <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0"/>
-        <PackageVersion Include="System.Text.Encoding.CodePages" Version="8.0.0"/>
-        <PackageVersion Include="Polly" Version="8.4.0"/>
-        <PackageVersion Include="TagLibSharp" Version="2.3.0"/>
-        <PackageVersion Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageVersion Include="NetEscapades.Configuration.Yaml" Version="3.1.0"/>
-        <PackageVersion Include="MusicDecrypto.Library" Version="2.4.0"/>
-        <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0"/>
-        <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0"/>
-        <PackageVersion Include="AutoMapper" Version="13.0.1"/>
-        <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
-        <PackageVersion Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.6"/>
-        <PackageVersion Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.6"/>
-        <PackageVersion Include="SuperSocket.WebSocket" Version="2.0.0-beta.11"/>
-        <PackageVersion Include="SuperSocket.WebSocket.Server" Version="2.0.0-beta.11"/>
-        <!-- Testing Projects -->
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0"/>
-        <PackageVersion Include="Shouldly" Version="4.2.1"/>
-        <PackageVersion Include="xunit" Version="2.8.1"/>
-        <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageVersion>
-        <PackageVersion Include="coverlet.collector" Version="6.0.2">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageVersion>
-        <!-- Avalonia -->
-        <PackageVersion Include="Avalonia" Version="11.0.10"/>
-        <PackageVersion Include="Avalonia.Desktop" Version="11.0.10"/>
-        <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.0.10"/>
-        <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.0.10"/>
-        <PackageVersion Include="Avalonia.ReactiveUI" Version="11.0.10"/>
-        <PackageVersion Include="Avalonia.Diagnostics" Version="11.0.6"/>
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="FluentAvaloniaUI" Version="2.0.5" />
+    <PackageVersion Include="FluentIcons.Avalonia.Fluent" Version="1.1.244" />
+    <PackageVersion Include="McMaster.Extensions.CommandLineUtils" Version="4.1.1" />
+    <PackageVersion Include="McMaster.Extensions.Hosting.CommandLine" Version="4.1.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageVersion Include="QRCoder" Version="1.5.1" />
+    <PackageVersion Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Async" Version="2.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+    <PackageVersion Include="Polly" Version="8.4.0" />
+    <PackageVersion Include="TagLibSharp" Version="2.3.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
+    <PackageVersion Include="MusicDecrypto.Library" Version="2.4.0" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageVersion Include="AutoMapper" Version="13.0.1" />
+    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.6" />
+    <PackageVersion Include="SuperSocket.WebSocket" Version="2.0.0-beta.11" />
+    <PackageVersion Include="SuperSocket.WebSocket.Server" Version="2.0.0-beta.11" />
+    <!-- Testing Projects -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageVersion Include="Shouldly" Version="4.2.1" />
+    <PackageVersion Include="xunit" Version="2.8.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <PackageVersion Include="coverlet.collector" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <!-- Avalonia -->
+    <PackageVersion Include="Avalonia" Version="11.0.11" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.0.11" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.0.11" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.0.11" />
+    <PackageVersion Include="Avalonia.ReactiveUI" Version="11.0.11" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.0.11" />
+  </ItemGroup>
 </Project>
