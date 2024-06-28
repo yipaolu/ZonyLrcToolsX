@@ -1,0 +1,143 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ZonyLrcTools.Desktop.Pages.SettingsPage"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:viewModels="clr-namespace:ZonyLrcTools.Desktop.ViewModels"
+             xmlns:settings="clr-namespace:ZonyLrcTools.Desktop.ViewModels.Settings"
+             x:DataType="settings:LyricsSettingsViewModel">
+    <ScrollViewer>
+        <StackPanel Spacing="20">
+            <!-- Global Configuration -->
+            <ui:SettingsExpander Header="Global Lyrics Configuration" Description="Configure global settings for lyrics">
+                <ui:SettingsExpanderItem Content="Merge Bilingual Lyrics">
+                    <ui:SettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding Config.IsOneLine}" />
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <ui:SettingsExpanderItem Content="Line Break Format">
+                    <ui:SettingsExpanderItem.Footer>
+                        <ComboBox SelectedItem="{Binding Config.LineBreak}">
+                            <ComboBoxItem Content="Windows" />
+                            <ComboBoxItem Content="Unix" />
+                            <ComboBoxItem Content="Mac" />
+                        </ComboBox>
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <ui:SettingsExpanderItem Content="Enable Translation">
+                    <ui:SettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding Config.IsEnableTranslation}" />
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <ui:SettingsExpanderItem Content="Skip Existing Lyric Files">
+                    <ui:SettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding Config.IsSkipExistLyricFiles}" />
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <ui:SettingsExpanderItem Content="File Encoding">
+                    <ui:SettingsExpanderItem.Footer>
+                        <ComboBox SelectedItem="{Binding Config.FileEncoding}">
+                            <ComboBoxItem Content="UTF-8" />
+                            <ComboBoxItem Content="UTF-16" />
+                            <ComboBoxItem Content="ASCII" />
+                        </ComboBox>
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <ui:SettingsExpanderItem Content="Only Output Translation">
+                    <ui:SettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding Config.IsOnlyOutputTranslation}" />
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+            </ui:SettingsExpander>
+
+            <!-- Plugin Configuration -->
+            <ui:SettingsExpander Header="Lyrics Provider Plugins" Description="Configure settings for lyrics provider plugins">
+                <ItemsRepeater ItemsSource="{Binding Plugin}">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <ui:SettingsExpander Margin="0,0,0,10">
+                                <ui:SettingsExpander.Header>
+                                    <TextBlock Text="{Binding Name}" />
+                                </ui:SettingsExpander.Header>
+
+                                <ui:SettingsExpanderItem Content="Priority">
+                                    <ui:SettingsExpanderItem.Footer>
+                                        <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" />
+                                    </ui:SettingsExpanderItem.Footer>
+                                </ui:SettingsExpanderItem>
+
+                                <ui:SettingsExpanderItem Content="Search Depth">
+                                    <ui:SettingsExpanderItem.Footer>
+                                        <NumericUpDown Value="{Binding Depth}" Minimum="1" Maximum="100" />
+                                    </ui:SettingsExpanderItem.Footer>
+                                </ui:SettingsExpanderItem>
+                            </ui:SettingsExpander>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ui:SettingsExpander>
+
+            <!-- Tag Info Configuration -->
+            <ui:SettingsExpander Header="Tag Info Configuration" Description="Configure settings for tag information">
+                <!-- Block Word Options -->
+                <ui:SettingsExpanderItem Content="Enable Block Word Feature">
+                    <ui:SettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding Tag.BlockWord.IsEnable}" />
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <ui:SettingsExpanderItem Content="Block Word Dictionary File Path">
+                    <ui:SettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBox Text="{Binding Tag.BlockWord.FilePath}" Width="200" />
+                            <Button Content="Browse" Command="{Binding BrowseBlockWordFileCommand}" />
+                        </StackPanel>
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <!-- Tag Info Providers -->
+                <ui:SettingsExpander Header="Tag Info Providers" Description="Configure settings for tag info provider plugins">
+                    <ItemsRepeater ItemsSource="{Binding Tag.Plugin}">
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <ui:SettingsExpander Margin="0,0,0,10">
+                                    <ui:SettingsExpander.Header>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </ui:SettingsExpander.Header>
+
+                                    <ui:SettingsExpanderItem Content="Priority">
+                                        <ui:SettingsExpanderItem.Footer>
+                                            <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" />
+                                        </ui:SettingsExpanderItem.Footer>
+                                    </ui:SettingsExpanderItem>
+
+                                    <ui:SettingsExpanderItem Content="Extensions">
+                                        <ui:SettingsExpanderItem.Footer>
+                                            <ItemsRepeater ItemsSource="{Binding Extensions}">
+                                                <ItemsRepeater.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid ColumnDefinitions="Auto,*" Margin="0,5">
+                                                            <TextBlock Grid.Column="0" Text="{Binding Key}" Margin="0,0,10,0" />
+                                                            <TextBox Grid.Column="1" Text="{Binding Value}" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsRepeater.ItemTemplate>
+                                            </ItemsRepeater>
+                                        </ui:SettingsExpanderItem.Footer>
+                                    </ui:SettingsExpanderItem>
+                                </ui:SettingsExpander>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ui:SettingsExpander>
+            </ui:SettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

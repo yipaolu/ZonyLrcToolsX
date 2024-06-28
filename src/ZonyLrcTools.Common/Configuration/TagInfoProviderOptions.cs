@@ -6,6 +6,6 @@ namespace ZonyLrcTools.Common.Configuration
 
         public int Priority { get; set; }
 
-        public Dictionary<string, string> Extensions { get; set; } = null!;
+        public Dictionary<string, string>? Extensions { get; set; } = null!;
     }
 }

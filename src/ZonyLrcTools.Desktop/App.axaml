@@ -2,14 +2,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="ZonyLrcTools.Desktop.App"
              xmlns:local="using:ZonyLrcTools.Desktop"
-             RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+             RequestedThemeVariant="Default"
+             xmlns:ic="using:FluentIcons.Avalonia.Fluent"
+             xmlns:sty="using:FluentAvalonia.Styling">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <local:ViewLocator />
     </Application.DataTemplates>
-  
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="GlobalFontFamily">Microsoft YaHei, Simsun, Arial</FontFamily>
+        </ResourceDictionary>
+    </Application.Resources>
+
     <Application.Styles>
         <FluentTheme />
+        <styling:FluentAvaloniaTheme />
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource GlobalFontFamily}" />
+        </Style>
     </Application.Styles>
 </Application>
