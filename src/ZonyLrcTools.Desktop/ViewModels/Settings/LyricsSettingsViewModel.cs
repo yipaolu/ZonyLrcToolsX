@@ -20,6 +20,8 @@ public class LyricsSettingsViewModel : ViewModelBase
         BrowseBlockWordFileCommand = ReactiveCommand.Create(BrowseBlockWordFile);
     }
 
+    public static string Version => typeof(Program).Assembly.GetName().Version!.ToString();
+
     public TagInfoViewModel Tag { get; }
 
     public ReactiveCommand<Unit, Unit> BrowseBlockWordFileCommand { get; }

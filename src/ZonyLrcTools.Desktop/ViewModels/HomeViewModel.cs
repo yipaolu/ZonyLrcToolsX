@@ -1,11 +1,12 @@
 using System.Collections.ObjectModel;
 using ReactiveUI;
+using ZonyLrcTools.Common;
 
 namespace ZonyLrcTools.Desktop.ViewModels;
 
 public class HomeViewModel : ViewModelBase
 {
-    public ObservableCollection<SongInfo> Songs { get; } = [];
+    public ObservableCollection<SongInfoViewModel> Songs { get; } = [];
 
     private double _downloadProgress;
 
@@ -16,10 +17,20 @@ public class HomeViewModel : ViewModelBase
     }
 }
 
-public class SongInfo
+public class SongInfoViewModel(MusicInfo info)
 {
-    public string SongName { get; set; }
-    public string ArtistName { get; set; }
-    public string FilePath { get; set; }
-    public string DownloadStatus { get; set; }
+    private MusicInfo Info { get; } = info;
+
+    public string SongName => Info.Name;
+    public string ArtistName => Info.Artist;
+    public string FilePath => Info.FilePath;
+
+    public DownloadStatus DownloadStatus { get; set; } = DownloadStatus.NotStarted;
+}
+
+public enum DownloadStatus
+{
+    NotStarted = 1,
+    Completed,
+    Failed
 }

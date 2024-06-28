@@ -5,20 +5,36 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ZonyLrcTools.Desktop.Pages.SettingsPage"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:viewModels="clr-namespace:ZonyLrcTools.Desktop.ViewModels"
              xmlns:settings="clr-namespace:ZonyLrcTools.Desktop.ViewModels.Settings"
              x:DataType="settings:LyricsSettingsViewModel">
     <ScrollViewer>
-        <StackPanel Spacing="20">
-            <!-- Global Configuration -->
-            <ui:SettingsExpander Header="Global Lyrics Configuration" Description="Configure global settings for lyrics">
-                <ui:SettingsExpanderItem Content="Merge Bilingual Lyrics">
+        <StackPanel Orientation="Vertical" Margin="24" Spacing="8">
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                <Image Width="64" Height="64" HorizontalAlignment="Left"
+                       Source="/Assets/logo.ico"
+                       RenderOptions.BitmapInterpolationMode="HighQuality" />
+
+                <StackPanel Grid.Column="1"
+                            Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Theme="{StaticResource FluentSubtitleTextBlockStyle}" Text="ZonyLrcToolsX" />
+                    <TextBlock Theme="{StaticResource FluentBodyTextBlockStyle}"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Text="{Binding Version, StringFormat='Version {0}'}" />
+                </StackPanel>
+            </Grid>
+
+            <TextBlock Margin="0,20,0,0"
+                       Theme="{StaticResource FluentBodyStrongTextBlockStyle}"
+                       Text="软件设置" />
+            <!-- 全局设置 -->
+            <ui:SettingsExpander Header="全局设置" Description="配置软件的全局设置" IconSource="{StaticResource SettingsIcon}">
+                <ui:SettingsExpanderItem Content="是否合并歌词为一行">
                     <ui:SettingsExpanderItem.Footer>
                         <ToggleSwitch IsChecked="{Binding Config.IsOneLine}" />
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="Line Break Format">
+                <ui:SettingsExpanderItem Content="换行符">
                     <ui:SettingsExpanderItem.Footer>
                         <ComboBox SelectedItem="{Binding Config.LineBreak}">
                             <ComboBoxItem Content="Windows" />
@@ -28,19 +44,19 @@
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="Enable Translation">
+                <ui:SettingsExpanderItem Content="启用翻译歌词">
                     <ui:SettingsExpanderItem.Footer>
                         <ToggleSwitch IsChecked="{Binding Config.IsEnableTranslation}" />
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="Skip Existing Lyric Files">
+                <ui:SettingsExpanderItem Content="跳过已经存在的歌词文件(不覆盖)">
                     <ui:SettingsExpanderItem.Footer>
                         <ToggleSwitch IsChecked="{Binding Config.IsSkipExistLyricFiles}" />
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="File Encoding">
+                <ui:SettingsExpanderItem Content="文件编码">
                     <ui:SettingsExpanderItem.Footer>
                         <ComboBox SelectedItem="{Binding Config.FileEncoding}">
                             <ComboBoxItem Content="UTF-8" />
@@ -50,15 +66,15 @@
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="Only Output Translation">
+                <ui:SettingsExpanderItem Content="只输出翻译歌词">
                     <ui:SettingsExpanderItem.Footer>
                         <ToggleSwitch IsChecked="{Binding Config.IsOnlyOutputTranslation}" />
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
             </ui:SettingsExpander>
 
-            <!-- Plugin Configuration -->
-            <ui:SettingsExpander Header="Lyrics Provider Plugins" Description="Configure settings for lyrics provider plugins">
+            <!-- 歌词下载器配置 -->
+            <ui:SettingsExpander Header="歌词下载器设置" Description="配置每个单独的歌词下载器参数" IconSource="{StaticResource DownloadIcon}">
                 <ItemsRepeater ItemsSource="{Binding Plugin}">
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
@@ -67,13 +83,13 @@
                                     <TextBlock Text="{Binding Name}" />
                                 </ui:SettingsExpander.Header>
 
-                                <ui:SettingsExpanderItem Content="Priority">
+                                <ui:SettingsExpanderItem Content="下载器优先级">
                                     <ui:SettingsExpanderItem.Footer>
                                         <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" />
                                     </ui:SettingsExpanderItem.Footer>
                                 </ui:SettingsExpanderItem>
 
-                                <ui:SettingsExpanderItem Content="Search Depth">
+                                <ui:SettingsExpanderItem Content="搜索深度">
                                     <ui:SettingsExpanderItem.Footer>
                                         <NumericUpDown Value="{Binding Depth}" Minimum="1" Maximum="100" />
                                     </ui:SettingsExpanderItem.Footer>
@@ -84,26 +100,25 @@
                 </ItemsRepeater>
             </ui:SettingsExpander>
 
-            <!-- Tag Info Configuration -->
-            <ui:SettingsExpander Header="Tag Info Configuration" Description="Configure settings for tag information">
+            <!-- 标签设置 -->
+            <ui:SettingsExpander Header="标签读取设置" Description="配置读取音乐文件标签时的一些参数" IconSource="{StaticResource TagIcon}">
                 <!-- Block Word Options -->
-                <ui:SettingsExpanderItem Content="Enable Block Word Feature">
+                <ui:SettingsExpanderItem Content="是否启用屏蔽字典">
                     <ui:SettingsExpanderItem.Footer>
                         <ToggleSwitch IsChecked="{Binding Tag.BlockWord.IsEnable}" />
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="Block Word Dictionary File Path">
+                <ui:SettingsExpanderItem Content="屏蔽字典的路径:">
                     <ui:SettingsExpanderItem.Footer>
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBox Text="{Binding Tag.BlockWord.FilePath}" Width="200" />
-                            <Button Content="Browse" Command="{Binding BrowseBlockWordFileCommand}" />
+                            <Button Content="浏览" Command="{Binding BrowseBlockWordFileCommand}" />
                         </StackPanel>
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                <!-- Tag Info Providers -->
-                <ui:SettingsExpander Header="Tag Info Providers" Description="Configure settings for tag info provider plugins">
+                <ui:SettingsExpander Header="标签扫描器" Description="配置标签扫描器">
                     <ItemsRepeater ItemsSource="{Binding Tag.Plugin}">
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
@@ -112,13 +127,13 @@
                                         <TextBlock Text="{Binding Name}" />
                                     </ui:SettingsExpander.Header>
 
-                                    <ui:SettingsExpanderItem Content="Priority">
+                                    <ui:SettingsExpanderItem Content="优先级">
                                         <ui:SettingsExpanderItem.Footer>
                                             <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" />
                                         </ui:SettingsExpanderItem.Footer>
                                     </ui:SettingsExpanderItem>
 
-                                    <ui:SettingsExpanderItem Content="Extensions">
+                                    <ui:SettingsExpanderItem Content="扩展配置">
                                         <ui:SettingsExpanderItem.Footer>
                                             <ItemsRepeater ItemsSource="{Binding Extensions}">
                                                 <ItemsRepeater.ItemTemplate>
@@ -138,6 +153,30 @@
                     </ItemsRepeater>
                 </ui:SettingsExpander>
             </ui:SettingsExpander>
+
+            <TextBlock Margin="0,20,0,0"
+                       Theme="{StaticResource FluentBodyStrongTextBlockStyle}"
+                       Text="关于" />
+
+            <ui:SettingsExpander Description="获得帮助与支持信息" Header="帮助与支持"
+                                 IconSource="{StaticResource ChatHelpIcon}">
+                <ui:SettingsExpanderItem>
+                    <!-- QQ 群 -->
+                    <StackPanel Orientation="Vertical" Spacing="10">
+                        <TextBlock Text="QQ 群: 337656932" />
+                        <ui:HyperlinkButton NavigateUri="https://docs.myzony.com/">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <ui:SymbolIcon Symbol="Link" />
+                                <TextBlock Text="使用文档" />
+                            </StackPanel>
+                        </ui:HyperlinkButton>
+                    </StackPanel>
+                </ui:SettingsExpanderItem>
+            </ui:SettingsExpander>
+
+            <ui:SettingsExpander ActionIconSource="{StaticResource OpenIcon}" Click="OnGitHubClick"
+                                 Description="获取软件的源代码" Header="GitHub 仓库"
+                                 IconSource="{StaticResource CodeIcon}" IsClickEnabled="True" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>

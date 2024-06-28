@@ -1,9 +1,14 @@
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using DynamicData;
 using FluentAvalonia.UI.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using ZonyLrcTools.Common;
 using ZonyLrcTools.Desktop.Pages;
+using ZonyLrcTools.Desktop.ViewModels;
 
 namespace ZonyLrcTools.Desktop.Views;
 
@@ -41,14 +46,20 @@ public partial class MainView : UserControl
     private async void OnOpenFolderButtonClick(object? sender, RoutedEventArgs e)
     {
         var storage = _window?.StorageProvider;
-        if (storage?.CanOpen == true)
+        var musicInfoLoader = App.Current.Services.GetRequiredService<IMusicInfoLoader>();
+
+        if (storage?.CanOpen == true && DataContext is HomeViewModel vm)
         {
             var options = new FolderPickerOpenOptions
             {
                 SuggestedStartLocation = await storage.TryGetWellKnownFolderAsync(WellKnownFolder.Music)
             };
             var folders = await storage.OpenFolderPickerAsync(options);
-            var folderPath = folders[0].Path;
+            var folderPath = folders[0].Path.LocalPath;
+            var musicInfos = await musicInfoLoader.LoadAsync(folderPath);
+
+            vm.Songs.Clear();
+            vm.Songs.AddRange(musicInfos.Select(x => new SongInfoViewModel(x!)));
         }
     }
 

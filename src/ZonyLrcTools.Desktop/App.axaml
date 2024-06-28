@@ -14,7 +14,20 @@
 
     <Application.Resources>
         <ResourceDictionary>
+            <ic:SymbolIconSource x:Key="OpenIcon" Symbol="Open" />
+            <ic:SymbolIconSource x:Key="CodeIcon" Symbol="Code" />
+            <ic:SymbolIconSource x:Key="ChatHelpIcon" Symbol="ChatHelp" />
+            <ic:SymbolIconSource x:Key="SettingsIcon" Symbol="Settings" />
+            <ic:SymbolIconSource x:Key="DownloadIcon" Symbol="ArrowDownload" />
+            <ic:SymbolIconSource x:Key="TagIcon" Symbol="Tag" />
+            
             <FontFamily x:Key="GlobalFontFamily">Microsoft YaHei, Simsun, Arial</FontFamily>
+            
+            <ControlTheme x:Key="FluentBodyStrongTextBlockStyle"
+                          BasedOn="{StaticResource BodyStrongTextBlockStyle}" TargetType="TextBlock">
+                <Setter Property="LineHeight" Value="20" />
+                <Setter Property="ClipToBounds" Value="False" />
+            </ControlTheme>
         </ResourceDictionary>
     </Application.Resources>
 
