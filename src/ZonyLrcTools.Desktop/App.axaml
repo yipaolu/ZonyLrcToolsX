@@ -4,8 +4,7 @@
              xmlns:local="using:ZonyLrcTools.Desktop"
              xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
              RequestedThemeVariant="Default"
-             xmlns:ic="using:FluentIcons.Avalonia.Fluent"
-             xmlns:sty="using:FluentAvalonia.Styling">
+             xmlns:ic="using:FluentIcons.Avalonia.Fluent">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
@@ -22,12 +21,6 @@
             <ic:SymbolIconSource x:Key="TagIcon" Symbol="Tag" />
             
             <FontFamily x:Key="GlobalFontFamily">Microsoft YaHei, Simsun, Arial</FontFamily>
-            
-            <ControlTheme x:Key="FluentBodyStrongTextBlockStyle"
-                          BasedOn="{StaticResource BodyStrongTextBlockStyle}" TargetType="TextBlock">
-                <Setter Property="LineHeight" Value="20" />
-                <Setter Property="ClipToBounds" Value="False" />
-            </ControlTheme>
         </ResourceDictionary>
     </Application.Resources>
 
