@@ -57,5 +57,25 @@ namespace ZonyLrcTools.Common
 
         [GeneratedRegex(@"[<>:""/\\|?*]")]
         private static partial Regex InvalidFilePathRegex();
+
+        public static bool operator ==(MusicInfo? left, MusicInfo? right)
+        {
+            if (left is null && right is null)
+            {
+                return true;
+            }
+
+            if (left is null || right is null)
+            {
+                return false;
+            }
+            
+            return left.FilePath == right.FilePath;
+        }
+
+        public static bool operator !=(MusicInfo? left, MusicInfo? right)
+        {
+            return !(left == right);
+        }
     }
 }
