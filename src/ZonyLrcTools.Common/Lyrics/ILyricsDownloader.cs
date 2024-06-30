@@ -10,9 +10,11 @@ public interface ILyricsDownloader
     /// </summary>
     /// <param name="needDownloadMusicInfos">需要下载的歌词信息。</param>
     /// <param name="parallelCount">下载线程/并发量。</param>
+    /// <param name="callback">任务完成之后的回调方法。</param>
     /// <param name="cancellationToken">任务取消标记。</param>
     Task DownloadAsync(List<MusicInfo> needDownloadMusicInfos,
-        int parallelCount = 2,
+        int parallelCount = 1,
+        Func<MusicInfo, Task>? callback = null,
         CancellationToken cancellationToken = default);
 
     /// <summary>

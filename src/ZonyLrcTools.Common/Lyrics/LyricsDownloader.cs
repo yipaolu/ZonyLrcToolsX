@@ -10,6 +10,7 @@ using ZonyLrcTools.Common.Infrastructure.Threading;
 
 namespace ZonyLrcTools.Common.Lyrics;
 
+/// <inheritdoc cref="ZonyLrcTools.Common.Lyrics.ILyricsDownloader" />
 public class LyricsDownloader : ILyricsDownloader, ISingletonDependency
 {
     private readonly IEnumerable<ILyricsProvider> _lyricsProviders;
@@ -38,6 +39,7 @@ public class LyricsDownloader : ILyricsDownloader, ISingletonDependency
 
     public async Task DownloadAsync(List<MusicInfo> needDownloadMusicInfos,
         int parallelCount = 1,
+        Func<MusicInfo, Task>? callback = null,
         CancellationToken cancellationToken = default)
     {
         await _logger.InfoAsync("开始下载歌词文件数据...");
@@ -57,12 +59,12 @@ public class LyricsDownloader : ILyricsDownloader, ISingletonDependency
                     {
                         await DownloadAndWriteLyricsAsync(lyricsProvider, info);
 
-                        if (info.IsSuccessful)
-                        {
-                            _logger.LogSuccessful(info);
-                            return;
-                        }
+                        if (!info.IsSuccessful) continue;
+                        _logger.LogSuccessful(info);
+                        break;
                     }
+
+                    if (callback != null) await callback(info);
                 }, cancellationToken), cancellationToken));
 
         await Task.WhenAll(downloadTasks);
