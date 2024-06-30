@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using ReactiveUI;
 using ZonyLrcTools.Common;
@@ -6,26 +7,66 @@ namespace ZonyLrcTools.Desktop.ViewModels;
 
 public class HomeViewModel : ViewModelBase
 {
-    public ObservableCollection<SongInfoViewModel> Songs { get; } = [];
+    private ObservableCollection<SongInfoViewModel> _songs = new();
 
-    private double _downloadProgress;
+    public ObservableCollection<SongInfoViewModel> Songs
+    {
+        get => _songs;
+        set => this.RaiseAndSetIfChanged(ref _songs, value);
+    }
 
-    public double DownloadProgress
+    private int _downloadProgress;
+
+    public int DownloadProgress
     {
         get => _downloadProgress;
         set => this.RaiseAndSetIfChanged(ref _downloadProgress, value);
     }
+
+    private int _maxProgress;
+
+    public int MaxProgress
+    {
+        get => _maxProgress;
+        set => this.RaiseAndSetIfChanged(ref _maxProgress, value);
+    }
 }
 
-public class SongInfoViewModel(MusicInfo info)
+public class SongInfoViewModel : ReactiveObject
 {
-    private MusicInfo Info { get; } = info;
+    public SongInfoViewModel(MusicInfo info)
+    {
+        _info = info;
+        DownloadStatus = DownloadStatus.NotStarted;
+
+        this.WhenAnyValue(x => x.Info)
+            .Subscribe(_ =>
+            {
+                this.RaisePropertyChanged(nameof(SongName));
+                this.RaisePropertyChanged(nameof(ArtistName));
+                this.RaisePropertyChanged(nameof(FilePath));
+            });
+    }
+
+    private MusicInfo _info;
+
+    public MusicInfo Info
+    {
+        get => _info;
+        set => this.RaiseAndSetIfChanged(ref _info, value);
+    }
 
     public string SongName => Info.Name;
     public string ArtistName => Info.Artist;
     public string FilePath => Info.FilePath;
 
-    public DownloadStatus DownloadStatus { get; set; } = DownloadStatus.NotStarted;
+    private DownloadStatus _downloadStatus;
+
+    public DownloadStatus DownloadStatus
+    {
+        get => _downloadStatus;
+        set => this.RaiseAndSetIfChanged(ref _downloadStatus, value);
+    }
 }
 
 public enum DownloadStatus

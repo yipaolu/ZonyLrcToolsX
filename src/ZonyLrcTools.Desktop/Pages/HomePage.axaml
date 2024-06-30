@@ -6,13 +6,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ZonyLrcTools.Desktop.Pages.HomePage"
              x:DataType="viewModels:HomeViewModel">
-    
+
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Margin="10">
             <TextBlock Text="下载进度:" Margin="0,0,0,5" />
-            <ProgressBar Value="{Binding DownloadProgress}" Maximum="100" Height="20" />
+            <ProgressBar Value="{Binding DownloadProgress}" Maximum="{Binding MaxProgress}" Height="20" />
         </StackPanel>
-        
+
         <DataGrid AutoGenerateColumns="False"
                   IsReadOnly="True"
                   GridLinesVisibility="All"
