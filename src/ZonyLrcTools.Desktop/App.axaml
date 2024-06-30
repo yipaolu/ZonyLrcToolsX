@@ -19,7 +19,7 @@
             <ic:SymbolIconSource x:Key="SettingsIcon" Symbol="Settings" />
             <ic:SymbolIconSource x:Key="DownloadIcon" Symbol="ArrowDownload" />
             <ic:SymbolIconSource x:Key="TagIcon" Symbol="Tag" />
-            
+
             <FontFamily x:Key="GlobalFontFamily">Microsoft YaHei, Simsun, Arial</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
@@ -30,5 +30,6 @@
         <Style Selector="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource GlobalFontFamily}" />
         </Style>
+        <StyleInclude Source="/Controls/DownloadStatusControl.axaml" />
     </Application.Styles>
 </Application>

@@ -3,10 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:ZonyLrcTools.Desktop.ViewModels"
+             xmlns:controls="clr-namespace:ZonyLrcTools.Desktop.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ZonyLrcTools.Desktop.Pages.HomePage"
              x:DataType="viewModels:HomeViewModel">
-
+    
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Margin="10">
             <TextBlock Text="下载进度:" Margin="0,0,0,5" />
@@ -23,7 +24,13 @@
                 <DataGridTextColumn Header="歌曲名称" Binding="{Binding SongName}" Width="*" />
                 <DataGridTextColumn Header="歌手名称" Binding="{Binding ArtistName}" Width="*" />
                 <DataGridTextColumn Header="文件路径" Binding="{Binding FilePath}" Width="2*" />
-                <DataGridTextColumn Header="下载状态" Binding="{Binding DownloadStatus}" Width="1*" />
+                <DataGridTemplateColumn Header="下载状态" Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <controls:DownloadStatusControl Status="{Binding DownloadStatus}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
 
             <DataGrid.Styles>
