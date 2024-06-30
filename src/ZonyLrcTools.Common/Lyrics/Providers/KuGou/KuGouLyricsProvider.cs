@@ -8,7 +8,7 @@ using ZonyLrcTools.Common.Lyrics.Providers.KuGou.JsonModel;
 
 namespace ZonyLrcTools.Common.Lyrics.Providers.KuGou
 {
-    public class KuGourLyricsProvider : LyricsProvider
+    public class KuGouLyricsProvider : LyricsProvider
     {
         public override string DownloaderName => InternalLyricsProviderNames.KuGou;
 
@@ -20,7 +20,7 @@ namespace ZonyLrcTools.Common.Lyrics.Providers.KuGou
         private const string KuGouGetLyricAccessKeyUrl = @"http://lyrics.kugou.com/search";
         private const string KuGouGetLyricUrl = @"http://lyrics.kugou.com/download";
 
-        public KuGourLyricsProvider(IWarpHttpClient warpHttpClient,
+        public KuGouLyricsProvider(IWarpHttpClient warpHttpClient,
             ILyricsItemCollectionFactory lyricsItemCollectionFactory,
             IOptions<GlobalOptions> options)
         {
