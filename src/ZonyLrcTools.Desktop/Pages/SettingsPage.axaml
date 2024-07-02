@@ -94,13 +94,13 @@
 
                                 <ui:SettingsExpanderItem Content="下载器优先级">
                                     <ui:SettingsExpanderItem.Footer>
-                                        <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" Increment="1" />
+                                        <NumericUpDown Value="{Binding Priority, Converter={StaticResource NullToDefaultValueConverter}}" Minimum="-1" Maximum="100" Increment="1" />
                                     </ui:SettingsExpanderItem.Footer>
                                 </ui:SettingsExpanderItem>
 
                                 <ui:SettingsExpanderItem Content="搜索深度">
                                     <ui:SettingsExpanderItem.Footer>
-                                        <NumericUpDown Value="{Binding Depth}" Minimum="1" Maximum="100" Increment="1" />
+                                        <NumericUpDown Value="{Binding Depth, Converter={StaticResource NullToDefaultValueConverter}}" Minimum="1" Maximum="100" Increment="1" />
                                     </ui:SettingsExpanderItem.Footer>
                                 </ui:SettingsExpanderItem>
                             </ui:SettingsExpander>
@@ -138,7 +138,7 @@
 
                                     <ui:SettingsExpanderItem Content="优先级">
                                         <ui:SettingsExpanderItem.Footer>
-                                            <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" Increment="1" />
+                                            <NumericUpDown Value="{Binding Priority , Converter={StaticResource NullToDefaultValueConverter}}" Minimum="-1" Maximum="100" Increment="1" />
                                         </ui:SettingsExpanderItem.Footer>
                                     </ui:SettingsExpanderItem>
 
