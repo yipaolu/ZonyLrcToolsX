@@ -19,5 +19,10 @@ namespace ZonyLrcTools.Common.Configuration
         /// 代理服务器的 端口。
         /// </summary>
         public int Port { get; set; }
+
+        /// <summary>
+        /// 更新检查的 Url。
+        /// </summary>
+        public string UpdateUrl { get; set; } = default!;
     }
 }

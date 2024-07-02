@@ -47,7 +47,7 @@ namespace ZonyLrcTools.Common.Infrastructure.DependencyInject
                 .AddYamlFile("config.yaml")
                 .Build();
 
-            services.Configure<GlobalOptions>(configuration.GetSection("globalOption"));
+            services.Configure<GlobalOptions>(configuration);
 
             return services;
         }

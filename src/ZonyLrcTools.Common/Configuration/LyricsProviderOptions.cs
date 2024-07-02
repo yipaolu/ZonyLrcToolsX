@@ -16,5 +16,10 @@
         /// 搜索深度，值越大搜索结果越多，但搜索时间越长。
         /// </summary>
         public int Depth { get; set; }
+
+        /// <summary>
+        /// 歌词下载器的扩展属性。
+        /// </summary>
+        public Dictionary<string, string>? Additional { get; set; }
     }
 }

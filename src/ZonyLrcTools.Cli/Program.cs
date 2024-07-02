@@ -81,8 +81,7 @@ namespace ZonyLrcTools.Cli
                 .ConfigureLogging(l => l.AddSerilog())
                 .ConfigureHostConfiguration(builder =>
                 {
-                    builder
-                        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    builder.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                         .AddYamlFile("config.yaml");
                 })
                 .ConfigureServices((_, services) =>
