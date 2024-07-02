@@ -23,6 +23,7 @@
         <PackageReference Include="FluentAvaloniaUI" />
         <PackageReference Include="FluentIcons.Avalonia.Fluent" />
         <PackageReference Include="Microsoft.Extensions.Hosting"/>
+        <PackageReference Include="ReactiveUI.Fody" />
     </ItemGroup>
 
     <ItemGroup>

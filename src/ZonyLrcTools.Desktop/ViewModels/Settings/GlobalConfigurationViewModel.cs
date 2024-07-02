@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using ZonyLrcTools.Common.Configuration;
 
 namespace ZonyLrcTools.Desktop.ViewModels.Settings;
@@ -9,77 +15,68 @@ public class GlobalConfigurationViewModel : ViewModelBase
     public GlobalConfigurationViewModel(GlobalLyricsConfigOptions config)
     {
         _config = config;
+        InitializeLineBreakComboBoxItem();
+
+        IsOneLine = _config.IsOneLine;
+        IsEnableTranslation = _config.IsEnableTranslation;
+        IsSkipExistLyricFiles = _config.IsSkipExistLyricFiles;
+        IsOnlyOutputTranslation = _config.IsOnlyOutputTranslation;
+
+        this.WhenAnyValue(x => x.IsOneLine)
+            .Subscribe(x => _config.IsOneLine = x);
+        this.WhenAnyValue(x => x.IsEnableTranslation)
+            .Subscribe(x => _config.IsEnableTranslation = x);
+        this.WhenAnyValue(x => x.IsSkipExistLyricFiles)
+            .Subscribe(x => _config.IsSkipExistLyricFiles = x);
+        this.WhenAnyValue(x => x.IsOnlyOutputTranslation)
+            .Subscribe(x => _config.IsOnlyOutputTranslation = x);
     }
 
-    public bool IsOneLine
+    [Reactive] public bool IsOneLine { get; set; }
+
+    [Reactive] public bool IsEnableTranslation { get; set; }
+
+    [Reactive] public bool IsSkipExistLyricFiles { get; set; }
+
+    [Reactive] public string FileEncoding { get; set; }
+
+    [Reactive] public bool IsOnlyOutputTranslation { get; set; }
+
+    private void InitializeLineBreakComboBoxItem()
     {
-        get => _config.IsOneLine;
-        set
-        {
-            if (_config.IsOneLine != value)
-            {
-                _config.IsOneLine = value;
-            }
-        }
+        LineBreakOptions =
+        [
+            new TextComboboxItem { Name = "Windows", Value = "\r\n" },
+            new TextComboboxItem { Name = "Unix", Value = "\n" },
+            new TextComboboxItem { Name = "Mac", Value = "\r" }
+        ];
+        SelectedLineBreak = LineBreakOptions.FirstOrDefault(x => x.Value == _config.LineBreak)
+                            ?? LineBreakOptions.First();
+
+        FileEncodingOptions = Encoding.GetEncodings()
+            .Select(x => new TextComboboxItem { Name = x.DisplayName, Value = x.Name })
+            .ToList();
+        FileEncodingOptions.Insert(0, new TextComboboxItem { Name = "UTF-8-BOM", Value = "utf-8-bom" });
+        SelectedFileEncoding = FileEncodingOptions.FirstOrDefault(x => x.Value == _config.FileEncoding)
+                               ?? FileEncodingOptions.First();
+
+        this.WhenAnyValue(x => x.SelectedLineBreak)
+            .Subscribe(x => _config.LineBreak = x.Value);
+        this.WhenAnyValue(x => x.SelectedFileEncoding)
+            .Subscribe(x => _config.FileEncoding = x.Value);
     }
 
-    public string LineBreak
-    {
-        get => _config.LineBreak;
-        set
-        {
-            if (_config.LineBreak != value)
-            {
-                _config.LineBreak = value;
-            }
-        }
-    }
+    public List<TextComboboxItem> LineBreakOptions { get; private set; }
 
-    public bool IsEnableTranslation
-    {
-        get => _config.IsEnableTranslation;
-        set
-        {
-            if (_config.IsEnableTranslation != value)
-            {
-                _config.IsEnableTranslation = value;
-            }
-        }
-    }
+    [Reactive] public TextComboboxItem SelectedLineBreak { get; set; }
 
-    public bool IsSkipExistLyricFiles
-    {
-        get => _config.IsSkipExistLyricFiles;
-        set
-        {
-            if (_config.IsSkipExistLyricFiles != value)
-            {
-                _config.IsSkipExistLyricFiles = value;
-            }
-        }
-    }
+    public List<TextComboboxItem> FileEncodingOptions { get; private set; }
 
-    public string FileEncoding
-    {
-        get => _config.FileEncoding;
-        set
-        {
-            if (_config.FileEncoding != value)
-            {
-                _config.FileEncoding = value;
-            }
-        }
-    }
+    [Reactive] public TextComboboxItem SelectedFileEncoding { get; set; }
 
-    public bool IsOnlyOutputTranslation
+    public class TextComboboxItem
     {
-        get => _config.IsOnlyOutputTranslation;
-        set
-        {
-            if (_config.IsOnlyOutputTranslation != value)
-            {
-                _config.IsOnlyOutputTranslation = value;
-            }
-        }
+        public string Name { get; set; } = default!;
+        public string Value { get; set; } = default!;
     }
 }

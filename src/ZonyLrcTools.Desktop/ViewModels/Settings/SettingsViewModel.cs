@@ -6,16 +6,16 @@ using ZonyLrcTools.Common.Configuration;
 
 namespace ZonyLrcTools.Desktop.ViewModels.Settings;
 
-public class LyricsSettingsViewModel : ViewModelBase
+public class SettingsViewModel : ViewModelBase
 {
     private readonly GlobalOptions _globalOptions;
 
-    public LyricsSettingsViewModel(GlobalOptions globalOptions)
+    public SettingsViewModel(GlobalOptions globalOptions)
     {
         _globalOptions = globalOptions;
+
         Config = new GlobalConfigurationViewModel(globalOptions.Provider.Lyric.Config);
-        Plugin = new ObservableCollection<LyricsProviderViewModel>(
-            globalOptions.Provider.Lyric.Plugin.Select(p => new LyricsProviderViewModel(p)));
+        Plugin = new ObservableCollection<LyricsProviderViewModel>(globalOptions.Provider.Lyric.Plugin.Select(p => new LyricsProviderViewModel(p)));
         Tag = new TagInfoViewModel(globalOptions.Provider.Tag);
         BrowseBlockWordFileCommand = ReactiveCommand.Create(BrowseBlockWordFile);
     }

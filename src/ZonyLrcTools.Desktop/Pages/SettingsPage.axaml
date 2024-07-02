@@ -6,7 +6,8 @@
              x:Class="ZonyLrcTools.Desktop.Pages.SettingsPage"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:settings="clr-namespace:ZonyLrcTools.Desktop.ViewModels.Settings"
-             x:DataType="settings:LyricsSettingsViewModel">
+             x:DataType="settings:SettingsViewModel">
+
     <ScrollViewer>
         <StackPanel Orientation="Vertical" Margin="24" Spacing="8">
             <Grid ColumnDefinitions="Auto,*,Auto,Auto">
@@ -34,10 +35,13 @@
 
                 <ui:SettingsExpanderItem Content="换行符">
                     <ui:SettingsExpanderItem.Footer>
-                        <ComboBox SelectedItem="{Binding Config.LineBreak}">
-                            <ComboBoxItem Content="Windows" />
-                            <ComboBoxItem Content="Unix" />
-                            <ComboBoxItem Content="Mac" />
+                        <ComboBox ItemsSource="{Binding Config.LineBreakOptions}"
+                                  SelectedItem="{Binding Config.SelectedLineBreak}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
@@ -56,10 +60,13 @@
 
                 <ui:SettingsExpanderItem Content="文件编码">
                     <ui:SettingsExpanderItem.Footer>
-                        <ComboBox SelectedItem="{Binding Config.FileEncoding}">
-                            <ComboBoxItem Content="UTF-8" />
-                            <ComboBoxItem Content="UTF-16" />
-                            <ComboBoxItem Content="ASCII" />
+                        <ComboBox ItemsSource="{Binding Config.FileEncodingOptions}"
+                                  SelectedItem="{Binding Config.SelectedFileEncoding}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>

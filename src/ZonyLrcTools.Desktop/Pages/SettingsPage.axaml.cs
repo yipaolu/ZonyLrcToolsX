@@ -13,7 +13,7 @@ public partial class SettingsPage : UserControl
     public SettingsPage()
     {
         InitializeComponent();
-        DataContext = new LyricsSettingsViewModel(App.Current.Services.GetRequiredService<IOptions<GlobalOptions>>().Value);
+        DataContext = new SettingsViewModel(App.Current.Services.GetRequiredService<IOptions<GlobalOptions>>().Value);
     }
 
     private void OnGitHubClick(object? sender, RoutedEventArgs? eventArgs) => UrlHelper.OpenLink("https://github.com/real-zony/ZonyLrcToolsX");
