@@ -1,42 +1,22 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using ReactiveUI.Fody.Helpers;
 using ZonyLrcTools.Common.Configuration;
 
 namespace ZonyLrcTools.Desktop.ViewModels.Settings;
 
 public class TagInfoProviderViewModel : ViewModelBase
 {
-    private readonly TagInfoProviderOptions _options;
-
     public TagInfoProviderViewModel(TagInfoProviderOptions options)
     {
-        _options = options;
+        Name = options.Name;
+        Priority = options.Priority;
         Extensions = new ObservableCollection<KeyValuePair<string, string>>(options.Extensions ?? new Dictionary<string, string>());
     }
 
-    public string Name
-    {
-        get => _options.Name;
-        set
-        {
-            if (_options.Name != value)
-            {
-                _options.Name = value;
-            }
-        }
-    }
+    public string? Name { get; set; }
 
-    public int Priority
-    {
-        get => _options.Priority;
-        set
-        {
-            if (_options.Priority != value)
-            {
-                _options.Priority = value;
-            }
-        }
-    }
+    [Reactive] public int Priority { get; set; }
 
     public ObservableCollection<KeyValuePair<string, string>> Extensions { get; }
 }

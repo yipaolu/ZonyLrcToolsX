@@ -1,49 +1,52 @@
+using System;
+using System.Globalization;
+using Avalonia.Data;
+using Avalonia.Data.Converters;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using ZonyLrcTools.Common.Configuration;
 
 namespace ZonyLrcTools.Desktop.ViewModels.Settings;
 
 public class LyricsProviderViewModel : ViewModelBase
 {
-    private readonly LyricsProviderOptions _options;
-
     public LyricsProviderViewModel(LyricsProviderOptions options)
     {
-        _options = options;
+        var globalOptions = App.Current.Services.GetRequiredService<IOptions<GlobalOptions>>().Value;
+
+        Name = options.Name;
+        Priority = options.Priority;
+        Depth = options.Depth;
+
+        this.WhenAnyValue(x => x.Priority)
+            .Subscribe(priority => globalOptions.Provider.Lyric.GetLyricProviderOption(Name).Priority = priority);
+        this.WhenAnyValue(x => x.Depth)
+            .Subscribe(depth => globalOptions.Provider.Lyric.GetLyricProviderOption(Name).Depth = depth);
     }
 
-    public string Name
+    public string Name { get; set; }
+
+    [Reactive] public int Priority { get; set; }
+
+    [Reactive] public int Depth { get; set; }
+}
+
+internal class NullToDefaultValueConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        get => _options.Name;
-        set
-        {
-            if (_options.Name != value)
-            {
-                _options.Name = value;
-            }
-        }
+        return value != null ? System.Convert.ToDecimal(value) : 0;
     }
 
-    public int Priority
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        get => _options.Priority;
-        set
+        if (value is decimal dValue)
         {
-            if (_options.Priority != value)
-            {
-                _options.Priority = value;
-            }
+            return System.Convert.ToInt32(dValue);
         }
-    }
 
-    public int Depth
-    {
-        get => _options.Depth;
-        set
-        {
-            if (_options.Depth != value)
-            {
-                _options.Depth = value;
-            }
-        }
+        return BindingOperations.DoNothing;
     }
 }

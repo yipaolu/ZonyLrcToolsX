@@ -8,6 +8,10 @@
              xmlns:settings="clr-namespace:ZonyLrcTools.Desktop.ViewModels.Settings"
              x:DataType="settings:SettingsViewModel">
 
+    <UserControl.Resources>
+        <settings:NullToDefaultValueConverter x:Key="NullToDefaultValueConverter" />
+    </UserControl.Resources>
+
     <ScrollViewer>
         <StackPanel Orientation="Vertical" Margin="24" Spacing="8">
             <Grid ColumnDefinitions="Auto,*,Auto,Auto">
@@ -80,7 +84,7 @@
 
             <!-- 歌词下载器配置 -->
             <ui:SettingsExpander Header="歌词下载器设置" Description="配置每个单独的歌词下载器参数" IconSource="{StaticResource DownloadIcon}">
-                <ItemsRepeater ItemsSource="{Binding Plugin}">
+                <ItemsRepeater ItemsSource="{Binding LyricsProviders}">
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
                             <ui:SettingsExpander Margin="0,0,0,10">
@@ -90,13 +94,13 @@
 
                                 <ui:SettingsExpanderItem Content="下载器优先级">
                                     <ui:SettingsExpanderItem.Footer>
-                                        <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" />
+                                        <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" Increment="1" />
                                     </ui:SettingsExpanderItem.Footer>
                                 </ui:SettingsExpanderItem>
 
                                 <ui:SettingsExpanderItem Content="搜索深度">
                                     <ui:SettingsExpanderItem.Footer>
-                                        <NumericUpDown Value="{Binding Depth}" Minimum="1" Maximum="100" />
+                                        <NumericUpDown Value="{Binding Depth}" Minimum="1" Maximum="100" Increment="1" />
                                     </ui:SettingsExpanderItem.Footer>
                                 </ui:SettingsExpanderItem>
                             </ui:SettingsExpander>
@@ -118,13 +122,13 @@
                     <ui:SettingsExpanderItem.Footer>
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBox Text="{Binding Tag.BlockWord.FilePath}" Width="200" />
-                            <Button Content="浏览" Command="{Binding BrowseBlockWordFileCommand}" />
+                            <Button Content="浏览" Command="{Binding BrowseBlockWordFileCommand}" CommandParameter="{Binding $parent[Window]}" />
                         </StackPanel>
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
                 <ui:SettingsExpander Header="标签扫描器" Description="配置标签扫描器">
-                    <ItemsRepeater ItemsSource="{Binding Tag.Plugin}">
+                    <ItemsRepeater ItemsSource="{Binding Tag.TagInfoProviders}">
                         <ItemsRepeater.ItemTemplate>
                             <DataTemplate>
                                 <ui:SettingsExpander Margin="0,0,0,10">
@@ -134,7 +138,7 @@
 
                                     <ui:SettingsExpanderItem Content="优先级">
                                         <ui:SettingsExpanderItem.Footer>
-                                            <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" />
+                                            <NumericUpDown Value="{Binding Priority}" Minimum="-1" Maximum="100" Increment="1" />
                                         </ui:SettingsExpanderItem.Footer>
                                     </ui:SettingsExpanderItem>
 

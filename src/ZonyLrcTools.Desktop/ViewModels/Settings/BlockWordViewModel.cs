@@ -1,37 +1,26 @@
+using System;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using ZonyLrcTools.Common.Configuration;
 
 namespace ZonyLrcTools.Desktop.ViewModels.Settings;
 
 public class BlockWordViewModel : ViewModelBase
 {
-    private readonly BlockWordOptions _options;
-
-    public BlockWordViewModel(BlockWordOptions options)
+    public BlockWordViewModel(GlobalOptions options)
     {
-        _options = options;
-    }
+        IsEnable = options.Provider.Tag.BlockWord.IsEnable;
+        FilePath = options.Provider.Tag.BlockWord.FilePath;
 
-    public bool IsEnable
-    {
-        get => _options.IsEnable;
-        set
-        {
-            if (_options.IsEnable != value)
+        this.WhenAnyValue(x => x.IsEnable, x => x.FilePath)
+            .Subscribe(_ =>
             {
-                _options.IsEnable = value;
-            }
-        }
+                options.Provider.Tag.BlockWord.IsEnable = IsEnable;
+                options.Provider.Tag.BlockWord.FilePath = FilePath;
+            });
     }
 
-    public string FilePath
-    {
-        get => _options.FilePath;
-        set
-        {
-            if (_options.FilePath != value)
-            {
-                _options.FilePath = value;
-            }
-        }
-    }
+    [Reactive] public bool IsEnable { get; set; }
+
+    [Reactive] public string? FilePath { get; set; }
 }

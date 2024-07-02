@@ -6,16 +6,16 @@ namespace ZonyLrcTools.Desktop.ViewModels.Settings;
 
 public class TagInfoViewModel : ViewModelBase
 {
-    private readonly TagInfoOptions _options;
+    private readonly GlobalOptions _options;
 
-    public TagInfoViewModel(TagInfoOptions options)
+    public TagInfoViewModel(GlobalOptions options)
     {
         _options = options;
-        BlockWord = new BlockWordViewModel(options.BlockWord);
-        Plugin = new ObservableCollection<TagInfoProviderViewModel>(
-            options.Plugin.Select(p => new TagInfoProviderViewModel(p)));
+        BlockWord = new BlockWordViewModel(options);
+        TagInfoProviders = new ObservableCollection<TagInfoProviderViewModel>(options.Provider.Tag.Plugin.Select(p => new TagInfoProviderViewModel(p)));
     }
 
     public BlockWordViewModel BlockWord { get; }
-    public ObservableCollection<TagInfoProviderViewModel> Plugin { get; }
+
+    public ObservableCollection<TagInfoProviderViewModel> TagInfoProviders { get; }
 }

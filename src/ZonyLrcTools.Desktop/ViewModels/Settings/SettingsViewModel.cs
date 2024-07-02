@@ -1,6 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Platform.Storage;
 using ReactiveUI;
 using ZonyLrcTools.Common.Configuration;
 
@@ -8,31 +11,46 @@ namespace ZonyLrcTools.Desktop.ViewModels.Settings;
 
 public class SettingsViewModel : ViewModelBase
 {
-    private readonly GlobalOptions _globalOptions;
-
     public SettingsViewModel(GlobalOptions globalOptions)
     {
-        _globalOptions = globalOptions;
-
-        Config = new GlobalConfigurationViewModel(globalOptions.Provider.Lyric.Config);
-        Plugin = new ObservableCollection<LyricsProviderViewModel>(globalOptions.Provider.Lyric.Plugin.Select(p => new LyricsProviderViewModel(p)));
-        Tag = new TagInfoViewModel(globalOptions.Provider.Tag);
-        BrowseBlockWordFileCommand = ReactiveCommand.Create(BrowseBlockWordFile);
+        Config = new GlobalConfigurationViewModel(globalOptions);
+        LyricsProviders = new ObservableCollection<LyricsProviderViewModel>(globalOptions.Provider.Lyric.Plugin.Select(p => new LyricsProviderViewModel(p)));
+        Tag = new TagInfoViewModel(globalOptions);
+        BrowseBlockWordFileCommand = ReactiveCommand.CreateFromTask<Window>(BrowseBlockWordFile);
     }
 
     public static string Version => typeof(Program).Assembly.GetName().Version!.ToString();
 
     public TagInfoViewModel Tag { get; }
 
-    public ReactiveCommand<Unit, Unit> BrowseBlockWordFileCommand { get; }
+    public ReactiveCommand<Window, Unit> BrowseBlockWordFileCommand { get; }
 
     public GlobalConfigurationViewModel Config { get; }
 
-    public ObservableCollection<LyricsProviderViewModel> Plugin { get; }
+    public ObservableCollection<LyricsProviderViewModel> LyricsProviders { get; }
 
-    private void BrowseBlockWordFile()
+    private async Task BrowseBlockWordFile(Window parentWindow)
     {
-        // Implement file browsing logic here
-        // Update Tag.BlockWord.FilePath with the selected file path
+        var storage = parentWindow.StorageProvider;
+        if (storage.CanOpen)
+        {
+            var options = new FilePickerOpenOptions
+            {
+                AllowMultiple = false,
+                FileTypeFilter = new[]
+                {
+                    new FilePickerFileType("JSON")
+                    {
+                        Patterns = new[] { "*.json" }
+                    }
+                }
+            };
+
+            var files = await storage.OpenFilePickerAsync(options);
+            if (files.Count > 0)
+            {
+                Tag.BlockWord.FilePath = files[0].Path.LocalPath;
+            }
+        }
     }
 }
