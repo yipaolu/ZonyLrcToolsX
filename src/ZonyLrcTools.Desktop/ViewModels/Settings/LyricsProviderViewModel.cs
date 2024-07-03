@@ -4,7 +4,6 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ZonyLrcTools.Common.Configuration;
 
@@ -20,10 +19,8 @@ public class LyricsProviderViewModel : ViewModelBase
         Priority = options.Priority;
         Depth = options.Depth;
 
-        this.WhenAnyValue(x => x.Priority)
-            .Subscribe(priority => globalOptions.Provider.Lyric.GetLyricProviderOption(Name).Priority = priority);
-        this.WhenAnyValue(x => x.Depth)
-            .Subscribe(depth => globalOptions.Provider.Lyric.GetLyricProviderOption(Name).Depth = depth);
+        SubscribeToProperty(this, x => x.Priority, x => globalOptions.Provider.Lyric.GetLyricProviderOption(Name).Priority = x);
+        SubscribeToProperty(this, x => x.Depth, x => globalOptions.Provider.Lyric.GetLyricProviderOption(Name).Depth = x);
     }
 
     public string Name { get; set; }

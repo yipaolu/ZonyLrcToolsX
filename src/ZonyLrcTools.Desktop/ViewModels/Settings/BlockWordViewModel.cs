@@ -1,5 +1,3 @@
-using System;
-using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ZonyLrcTools.Common.Configuration;
 
@@ -12,12 +10,8 @@ public class BlockWordViewModel : ViewModelBase
         IsEnable = options.Provider.Tag.BlockWord.IsEnable;
         FilePath = options.Provider.Tag.BlockWord.FilePath;
 
-        this.WhenAnyValue(x => x.IsEnable, x => x.FilePath)
-            .Subscribe(_ =>
-            {
-                options.Provider.Tag.BlockWord.IsEnable = IsEnable;
-                options.Provider.Tag.BlockWord.FilePath = FilePath;
-            });
+        SubscribeToProperty(this, x => x.IsEnable, x => options.Provider.Tag.BlockWord.IsEnable = x);
+        SubscribeToProperty(this, x => x.FilePath, x => options.Provider.Tag.BlockWord.FilePath = x!);
     }
 
     [Reactive] public bool IsEnable { get; set; }

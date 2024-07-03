@@ -21,14 +21,10 @@ public class GlobalConfigurationViewModel : ViewModelBase
         IsSkipExistLyricFiles = globalConfig.IsSkipExistLyricFiles;
         IsOnlyOutputTranslation = globalConfig.IsOnlyOutputTranslation;
 
-        this.WhenAnyValue(x => x.IsOneLine)
-            .Subscribe(x => globalConfig.IsOneLine = x);
-        this.WhenAnyValue(x => x.IsEnableTranslation)
-            .Subscribe(x => globalConfig.IsEnableTranslation = x);
-        this.WhenAnyValue(x => x.IsSkipExistLyricFiles)
-            .Subscribe(x => globalConfig.IsSkipExistLyricFiles = x);
-        this.WhenAnyValue(x => x.IsOnlyOutputTranslation)
-            .Subscribe(x => globalConfig.IsOnlyOutputTranslation = x);
+        SubscribeToProperty(this, x => x.IsOneLine, x => globalConfig.IsOneLine = x);
+        SubscribeToProperty(this, x => x.IsEnableTranslation, x => globalConfig.IsEnableTranslation = x);
+        SubscribeToProperty(this, x => x.IsSkipExistLyricFiles, x => globalConfig.IsSkipExistLyricFiles = x);
+        SubscribeToProperty(this, x => x.IsOnlyOutputTranslation, x => globalConfig.IsOnlyOutputTranslation = x);
     }
 
     [Reactive] public bool IsOneLine { get; set; }

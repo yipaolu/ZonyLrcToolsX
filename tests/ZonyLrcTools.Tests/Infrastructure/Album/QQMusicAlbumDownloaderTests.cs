@@ -5,12 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
+using Xunit;
 using ZonyLrcTools.Common.Album;
 
 namespace ZonyLrcTools.Tests.Infrastructure.Album
 {
     public class QQMusicAlbumDownloaderTests : TestBase
     {
+        [Fact]
         public async Task DownloadDataAsync_Test()
         {
             var downloader = ServiceProvider.GetRequiredService<IEnumerable<IAlbumProvider>>()
