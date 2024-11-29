@@ -33,7 +33,7 @@ namespace ZonyLrcTools.Tests.Infrastructure.Lyrics
             await Should.ThrowAsync<ErrorCodeException>(_lyricsProvider.DownloadAsync("天ノ弱", "漆柚").AsTask);
         }
 
-        [Fact]
+        [Fact(Skip = "This music already exists KuGou's database.")]
         public async Task DownloadAsync_Index_Exception_Test()
         {
             await Should.ThrowAsync<ErrorCodeException>(async () => await _lyricsProvider.DownloadAsync("40'z", "ZOOLY"));

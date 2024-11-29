@@ -5,6 +5,7 @@ using Shouldly;
 using Xunit;
 using ZonyLrcTools.Common.Configuration;
 using ZonyLrcTools.Common.Infrastructure.Network;
+using ZonyLrcTools.Common.Updater;
 
 namespace ZonyLrcTools.Tests.Infrastructure.Network
 {
@@ -25,9 +26,9 @@ namespace ZonyLrcTools.Tests.Infrastructure.Network
         {
             var client = ServiceProvider.GetRequiredService<IWarpHttpClient>();
 
-            var response = await client.GetAsync(@"https://www.baidu.com");
+            var response = await client.GetAsync(DefaultUpdater.UpdateUrl);
             response.ShouldNotBeNull();
-            response.ShouldContain("百度");
+            response.ShouldContain("NewVersion");
         }
 
         [Fact]
@@ -39,10 +40,10 @@ namespace ZonyLrcTools.Tests.Infrastructure.Network
 
             var client = ServiceProvider.GetRequiredService<IWarpHttpClient>();
 
-            var response = await client.GetAsync(@"https://www.baidu.com");
+            var response = await client.GetAsync(DefaultUpdater.UpdateUrl);
 
             response.ShouldNotBeNull();
-            response.ShouldContain("百度");
+            response.ShouldContain("NewVersion");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using System.IO;
+using Shouldly;
 using Xunit;
 using ZonyLrcTools.Common;
 
@@ -9,7 +10,10 @@ public class MusicInfoTests
     [Fact]
     public void InvalidFilePathTest()
     {
-        var musicInfo = new MusicInfo("C:\\Users\\Zony\\Music\\[ZonyLrcTools]:? - 01. 你好.mp3", "你好", "Zony");
-        musicInfo.FilePath.ShouldBe(@"C:\Users\Zony\Music\[ZonyLrcTools] - 01. 你好.mp3");
+        var tempFilePath = Path.GetTempFileName();
+        var errorFilePath = $"{tempFilePath}" + "?:";
+        
+        var musicInfo = new MusicInfo(errorFilePath, "你好", "Zony");
+        musicInfo.FilePath.ShouldBe(tempFilePath);
     }
 }
