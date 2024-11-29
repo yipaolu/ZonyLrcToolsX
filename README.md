@@ -1,38 +1,37 @@
-简体中文 | [English](./docs/en_US.md)
+English | [简体中文](./zh_CN.md)
 
-# 免责声明
+# Disclaimer
 
-- 本工具仅作个人学习研究使用，可运行的二进制文件仅用于演示功能，不得将源码及其产物用于商业用途，否则由此造成的相关法律问题，[本人](https://github.com/real-zony) 不承担任何法律责任。
-- 任何单位或个人因下载使用软件所产生的任何意外、疏忽、合约毁坏、诽谤、版权或知识产权侵犯及其造成的损失 (包括但不限于直接、间接、附带或衍生的损失等)，[本人](https://github.com/real-zony) 不承担任何法律责任。
-- 用户明确并同意本声明条款列举的全部内容，对使用本工具可能存在的风险和相关后果将完全由用户自行承担，[本人](https://github.com/real-zony) 不承担任何法律责任。
+- This tool is for personal learning and research purposes only. The executable binary files are for demonstration purposes only and the source code and its products must not be used for commercial purposes. Otherwise, I [here](https://github.com/real-zony) will not be responsible for any related legal issues.
+- Any unit or individual that downloads and uses the software resulting in any accidents, negligence, contract breaches, defamation, copyright or intellectual property infringement, and their resulting losses (including but not limited to direct, indirect, incidental or derivative losses), I [here](https://github.com/real-zony) will not bear any legal responsibility.
+- Users clearly agree to all the terms listed in this statement and fully assume the risks and consequences of using this tool. I [here](https://github.com/real-zony) will not bear any legal responsibility.
 
-# 简介
+# Introduction
 
-ZonyLrcToolX 4 是一个基于 CEF 的跨平台歌词下载工具，**QQ 群:337656932**，群文件里面有详细的视频教程。
+ZonyLrcToolX 4 is a cross-platform lyrics download tool based on CEF. **QQ Group: 337656932**. Detailed video tutorials are available in the group files.
 
-🚧 当前版本正在开发当中。
-🚧 如果你想查看可以工作的代码，请切换到 dev 分支。
+🚧 The current version is under development.
+🚧 If you want to see working code, please switch to the dev branch.
 
-# 下载
+# Download
 
-如果你要获取最新版本，请访问 **[Release](https://github.com/real-zony/ZonyLrcToolsX/releases)** 页面进行下载。
+To get the latest version, please visit the **[Release](https://github.com/real-zony/ZonyLrcToolsX/releases)** page for download.
 
-## Arch Linux 用户仓库
+## Arch Linux User Repository
 
-本软件已打包到 [AUR](https://aur.archlinux.org/packages/zonylrctoolsx-bin)。Arch Linux 及其衍生发行版用户可用如下命令安装：
+This software has been packaged into [AUR](https://aur.archlinux.org/packages/zonylrctoolsx-bin). Arch Linux and its derivative distribution users can install it with the following command:
 
 ```bash
-# yay 或其他 AUR Helper
+# yay or other AUR Helpers
 yay -S zonylrctoolsx-bin
 
 ZonyLrcTools.Cli --help
 ```
 
-# 用法
+# Usage
+Detailed usage instructions have been moved to a new documentation site. Please visit [https://docs.myzony.com](https://docs.myzony.com) for complete documentation.
 
-软件的具体使用方法已经迁移到了全新的文档站点，请跳转到 [https://docs.myzony.com](https://docs.myzony.com)，里面包含完整的说明文档。
-
-# 捐赠
+# Donation
 [爱发电](https://afdian.net/a/zony-lrc-tools)
 
 # Star History
