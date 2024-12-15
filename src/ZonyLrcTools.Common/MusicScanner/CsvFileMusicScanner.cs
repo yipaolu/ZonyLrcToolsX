@@ -1,3 +1,5 @@
+using System.Text;
+using Ude;
 using ZonyLrcTools.Common.Infrastructure.DependencyInject;
 
 namespace ZonyLrcTools.Common.MusicScanner;
@@ -13,11 +15,15 @@ public class CsvFileMusicScanner : ITransientDependency
     /// <param name="csvFilePath">CSV 文件的路径。</param>
     /// <param name="outputDirectory">歌词文件的输出目录。</param>
     /// <param name="pattern">输出的歌词文件格式，默认是 "{Artist} - {Title}.lrc" 的形式。</param>
-    public async Task<List<MusicInfo>> GetMusicInfoFromCsvFileAsync(string csvFilePath, string outputDirectory, string pattern)
+    public async Task<List<MusicInfo>> GetMusicInfoFromCsvFileAsync(string csvFilePath, string outputDirectory,
+        string pattern)
     {
-        var csvFileContent = await File.ReadAllTextAsync(csvFilePath);
-        var csvFileLines = csvFileContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-        return csvFileLines.Skip(1).Select(line => GetMusicInfoFromCsvFileLine(line, outputDirectory, pattern)).ToList();
+        var encoding = DetectFileEncoding(csvFilePath);
+
+        var csvFileContent = await File.ReadAllTextAsync(csvFilePath, encoding);
+        var csvFileLines = csvFileContent.Split([Environment.NewLine], StringSplitOptions.RemoveEmptyEntries);
+        return csvFileLines.Skip(1).Select(line => GetMusicInfoFromCsvFileLine(line, outputDirectory, pattern))
+            .ToList();
     }
 
     private MusicInfo GetMusicInfoFromCsvFileLine(string csvFileLine, string outputDirectory, string pattern)
@@ -28,5 +34,20 @@ public class CsvFileMusicScanner : ITransientDependency
         var fakeFilePath = Path.Combine(outputDirectory, pattern.Replace("{Name}", name).Replace("{Artist}", artist));
         var musicInfo = new MusicInfo(fakeFilePath, name, artist);
         return musicInfo;
+    }
+
+    private Encoding DetectFileEncoding(string filePath)
+    {
+        using var fileStream = File.OpenRead(filePath);
+        var detector = new CharsetDetector();
+        detector.Feed(fileStream);
+        detector.DataEnd();
+
+        if (detector.Charset != null)
+        {
+            return Encoding.GetEncoding(detector.Charset);
+        }
+
+        return Encoding.Default;
     }
 }
