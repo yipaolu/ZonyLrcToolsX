@@ -116,7 +116,8 @@ namespace ZonyLrcTools.Tests.Infrastructure.Lyrics
         [Fact]
         public async Task DownloadAsync_Source_Null_Test()
         {
-            var lyric = await _lyricsProvider.DownloadAsync("Concerto for Piano and Orchestra No. 12 in A major, K414 - 1. Allegro",
+            var lyric = await _lyricsProvider.DownloadAsync(
+                "Concerto for Piano and Orchestra No. 12 in A major, K414 - 1. Allegro",
                 "Wolfgang Amadeus Mozart");
 
             lyric.IsPruneMusic.ShouldBeTrue();
@@ -141,6 +142,13 @@ namespace ZonyLrcTools.Tests.Infrastructure.Lyrics
         public async Task DownloadAsync_Issue_20230429_03_Test()
         {
             var lyric = await _lyricsProvider.DownloadAsync("Your Heart Is A Muscle (2012)", "Carly Rae Jepsen");
+            lyric.IsPruneMusic.ShouldBeFalse();
+        }
+
+        [Fact]
+        public async Task DownloadAsync_Issue_156_Test()
+        {
+            var lyric = await _lyricsProvider.DownloadAsync("你说（demo）", "枯木逢春");
             lyric.IsPruneMusic.ShouldBeFalse();
         }
     }
