@@ -1,6 +1,5 @@
 #!/bin/bash
-read -r -p "请输入版本号:" Version
-Platforms=('win-x64' 'linux-x64' 'osx-x64')
+Platforms=('win-x64' 'linux-x64' 'osx-x64' 'win-arm64' 'linux-arm64' 'osx-arm64')
 
 if ! [ -d './TempFiles' ];
 then
@@ -11,11 +10,11 @@ rm -rf ./TempFiles/*
 
 for platform in "${Platforms[@]}"
 do
-    dotnet publish -r "$platform" -c Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
-    
-    cd ./bin/Release/net5.0/"$platform"/publish/
-    zip -r ./ZonyLrcTools_"$platform"_"$Version".zip ./
-    cd ../../../../../
+    dotnet publish -r "$platform" -c Release -p:PublishSingleFile=true -p:DebugType=none --self-contained true || exit 1
 
-    mv ./bin/Release/net5.0/"$platform"/publish/ZonyLrcTools_"$platform"_"$Version".zip ./TempFiles
+    cd ./bin/Release/net8.0/"$platform"/publish/ || exit 1
+    zip -r ./ZonyLrcTools_"$platform"_"${PUBLISH_VERSION}".zip ./ || exit 1
+    cd ../../../../../ || exit 1
+
+    mv ./bin/Release/net8.0/"$platform"/publish/ZonyLrcTools_"$platform"_"$PUBLISH_VERSION".zip ./TempFiles
 done

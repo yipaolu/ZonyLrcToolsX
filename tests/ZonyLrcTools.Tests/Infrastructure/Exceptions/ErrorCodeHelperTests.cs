@@ -1,6 +1,6 @@
 using Shouldly;
 using Xunit;
-using ZonyLrcTools.Cli.Infrastructure.Exceptions;
+using ZonyLrcTools.Common.Infrastructure.Exceptions;
 
 namespace ZonyLrcTools.Tests.Infrastructure.Exceptions
 {
@@ -12,7 +12,7 @@ namespace ZonyLrcTools.Tests.Infrastructure.Exceptions
             ErrorCodeHelper.LoadErrorMessage();
 
             ErrorCodeHelper.ErrorMessages.ShouldNotBeNull();
-            ErrorCodeHelper.ErrorMessages.Count.ShouldBe(15);
+            ErrorCodeHelper.ErrorMessages.Count.ShouldBe(17);
         }
 
         [Fact]

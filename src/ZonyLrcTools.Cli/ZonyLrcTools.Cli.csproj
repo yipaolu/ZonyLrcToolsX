@@ -1,41 +1,40 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.0.1" />
-      <PackageReference Include="McMaster.Extensions.Hosting.CommandLine" Version="4.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-      <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.2.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="Refit" Version="6.3.2" />
-      <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
-      <PackageReference Include="Refit.Newtonsoft.Json" Version="6.3.2" />
-      <PackageReference Include="Serilog.Extensions.Hosting" Version="4.2.0" />
-      <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-      <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
-      <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-      <PackageReference Include="TagLibSharp" Version="2.2.0" />
+        <PackageReference Include="McMaster.Extensions.CommandLineUtils"/>
+        <PackageReference Include="McMaster.Extensions.Hosting.CommandLine"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting"/>
+        <PackageReference Include="Serilog.Extensions.Hosting"/>
+        <PackageReference Include="Serilog.Sinks.Async"/>
+        <PackageReference Include="Serilog.Sinks.Console"/>
+        <PackageReference Include="Serilog.Sinks.File"/>
+        <PackageReference Include="System.Text.Encoding.CodePages"/>
+        <PackageReference Include="Ude.NetStandard"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="appsettings.json" />
-      <None Remove="Resources\error_msg.json" />
-      <Content Include="Resources\error_msg.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="BlockWords.json" />
-      <Content Include="BlockWords.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="config.yaml" />
-      <Content Include="config.yaml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+        <None Remove="appsettings.json"/>
+        <None Remove="Resources\error_msg.json"/>
+        <Content Include="Resources\error_msg.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="BlockWords.json"/>
+        <Content Include="BlockWords.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="config.yaml"/>
+        <Content Include="config.yaml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ZonyLrcTools.Common\ZonyLrcTools.Common.csproj"/>
     </ItemGroup>
 
 </Project>

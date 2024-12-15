@@ -1,0 +1,63 @@
+name: .NET
+
+on:
+  push:
+    branches: [ dev ]
+    paths:
+      - "versions/release.md"
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build version
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')${{github.run_number}}"
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Publish
+        working-directory: ./src/ZonyLrcTools.Cli
+        run: |
+          ls -a
+          chmod +x ./publish.sh
+          ./publish.sh
+          mv ./TempFiles ../../
+        shell: bash
+        env:
+          PUBLISH_VERSION: ${{ steps.date.outputs.date }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          retention-days: 90
+          name: release-files
+          path: |
+            ./TempFiles
+            ./versions/release.md
+    outputs:
+      version: ${{ steps.date.outputs.date }}
+  release:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: release-files
+          path: .
+      - name: Upload Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./TempFiles/*.zip"
+          token: ${{ secrets.GITHUBACTIONS }}
+          tag: ZonyLrcToolsX_Alpha.${{ needs.build.outputs.version }}
+          commit: dev
+          bodyFile: ./versions/release.md

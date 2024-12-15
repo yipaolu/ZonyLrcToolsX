@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using Xunit;
-using ZonyLrcTools.Cli.Infrastructure.Album;
+using ZonyLrcTools.Common.Album;
 
 namespace ZonyLrcTools.Tests.Infrastructure.Album
 {
@@ -14,8 +14,8 @@ namespace ZonyLrcTools.Tests.Infrastructure.Album
         [Fact]
         public async Task DownloadDataAsync_Test()
         {
-            var downloader = ServiceProvider.GetRequiredService<IEnumerable<IAlbumDownloader>>()
-                .FirstOrDefault(x => x.DownloaderName == InternalAlbumDownloaderNames.NetEase);
+            var downloader = ServiceProvider.GetRequiredService<IEnumerable<IAlbumProvider>>()
+                .FirstOrDefault(x => x.DownloaderName == InternalAlbumProviderNames.NetEase);
 
             downloader.ShouldNotBeNull();
             var albumBytes = await downloader.DownloadAsync("东方红", null);

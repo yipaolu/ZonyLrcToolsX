@@ -3,8 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Shouldly;
 using Xunit;
-using ZonyLrcTools.Cli.Config;
-using ZonyLrcTools.Cli.Infrastructure.Network;
+using ZonyLrcTools.Common.Configuration;
+using ZonyLrcTools.Common.Infrastructure.Network;
+using ZonyLrcTools.Common.Updater;
 
 namespace ZonyLrcTools.Tests.Infrastructure.Network
 {
@@ -25,24 +26,24 @@ namespace ZonyLrcTools.Tests.Infrastructure.Network
         {
             var client = ServiceProvider.GetRequiredService<IWarpHttpClient>();
 
-            var response = await client.GetAsync(@"https://www.baidu.com");
+            var response = await client.GetAsync(DefaultUpdater.UpdateUrl);
             response.ShouldNotBeNull();
-            response.ShouldContain("百度");
+            response.ShouldContain("NewVersion");
         }
 
         [Fact]
         public async Task GetAsyncWithProxy_Test()
         {
-            var option = ServiceProvider.GetRequiredService<IOptions<ToolOptions>>();
+            var option = ServiceProvider.GetRequiredService<IOptions<GlobalOptions>>();
             option.Value.NetworkOptions.Ip = "127.0.0.1";
             option.Value.NetworkOptions.Port = 4780;
 
             var client = ServiceProvider.GetRequiredService<IWarpHttpClient>();
 
-            var response = await client.GetAsync(@"https://www.baidu.com");
+            var response = await client.GetAsync(DefaultUpdater.UpdateUrl);
 
             response.ShouldNotBeNull();
-            response.ShouldContain("百度");
+            response.ShouldContain("NewVersion");
         }
     }
 }
